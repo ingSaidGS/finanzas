@@ -16,8 +16,8 @@ return new class extends Migration
             $table->dateTime('fecha_hora');
             $table->decimal('monto', 6, 2);
             $table->boolean('transferencia');
-            $table->foreignId('id_billetera_origen')->constrained('billeteras');
-            $table->foreignId('id_billetera_destino')->nullable()->constrained('billeteras');
+            $table->foreignId('id_billetera_origen')->nullable()->constrained('billeteras');
+            $table->foreignId('id_billetera_destino')->constrained('billeteras');
             $table->foreignId('id_categoria')->constrained('categorias');
             $table->string('descripcion', 30);
             $table->foreignId('id_user')->constrained('users');
