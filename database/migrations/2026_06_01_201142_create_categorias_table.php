@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre', 20);
             $table->enum('tipo', ['ingreso', 'egreso']);
-            $table->boolean('activo');
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }

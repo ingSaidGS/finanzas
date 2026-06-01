@@ -17,7 +17,7 @@ return new class extends Migration
             $table->enum('tipo', ['banco', 'efectivo']);
             $table->decimal('saldo', 6, 2)->default(0);;
             $table->string('proposito', 15);
-            $table->boolean('activo');
+             $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }
