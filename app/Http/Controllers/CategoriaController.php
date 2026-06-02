@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CategoriaController extends Controller
 {
@@ -12,6 +13,7 @@ class CategoriaController extends Controller
     public function index()
     {
         //
+        return Inertia::render('Categoria/index');
     }
 
     /**

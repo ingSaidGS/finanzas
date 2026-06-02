@@ -26,4 +26,18 @@
     .bg-primary-light {
         background-color: #a8b8ff;
     }
+
+    .active-tab-indicator {
+            position: relative;
+        }
+
+        .active-tab-indicator::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #00288e;
+        }
 }
