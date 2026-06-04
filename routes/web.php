@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\BilleteraController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransaccionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,6 +22,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('/categoria',CategoriaController::class);
+Route::resource('/billetera',BilleteraController::class);
+Route::patch('/billetera/{id}/archive', [BilleteraController::class, 'archive'])->name('billetera.archive');
+Route::patch('/billetera/{id}/restore', [BilleteraController::class, 'restore'])->name('billetera.restore');
+
+Route::resource('/transaccion',TransaccionController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
