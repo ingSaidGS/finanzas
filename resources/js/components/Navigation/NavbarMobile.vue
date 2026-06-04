@@ -1,5 +1,5 @@
 <script setup>
-
+import { Head, Link} from '@inertiajs/vue3';
 </script>
 
 <template>
@@ -8,6 +8,8 @@
     <header
         class="lg:hidden sticky top-0 z-50 flex items-center justify-between px-5 w-full h-16 bg-primary shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
         <div class="flex items-center gap-3">
+            <div></div>
+            
             <span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-secondary">Arco</span>
         </div>
         <div class="flex items-center gap-3">
@@ -24,27 +26,32 @@
     <!-- Mobile BottomNavBar -->
     <nav
         class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile py-2 bg-surface-container-lowest shadow-lg rounded-t-xl">
-        <a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-110 transition-transform"
-            href="#">
+        <Link class="flex flex-col items-center justify-center text-on-surface-variant active:scale-110 transition-transform"
+            :href="route('transaccion.index')">
             <span class="material-symbols-outlined" data-icon="home">home</span>
             <span class="font-label-sm text-label-sm-mobile">Home</span>
-        </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-110 transition-transform"
+        </Link>
+        <Link 
+            :href="route('billetera.index')"
+            class="flex flex-col items-center justify-center text-on-surface-variant active:scale-110 transition-transform"
             href="#">
             <span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
             <span class="font-label-sm text-label-sm-mobile">Wallets</span>
-        </a>
-        <button
+        </Link>
+        <Link
+            :href="route('transaccion.create')"
             class="flex flex-col items-center justify-center text-primary -mt-6 active:scale-110 transition-transform">
-            <span class="material-symbols-outlined text-[48px]" data-icon="add_circle"
+            <span class="material-symbols-outlined text-[70px]" data-icon="add_circle"
                 style="font-variation-settings: 'FILL' 1;">add_circle</span>
-        </button>
-        <a class="flex flex-col items-center justify-center text-primary font-bold active:scale-110 transition-transform"
+        </Link>
+        <Link 
+            :href="route('categoria.index')"
+            class="flex flex-col items-center justify-center text-primary font-bold active:scale-110 transition-transform"
             href="#">
             <span class="material-symbols-outlined" data-icon="category"
                 style="font-variation-settings: 'FILL' 1;">category</span>
             <span class="font-label-sm text-label-sm-mobile">Categorías</span>
-        </a>
+        </Link>
         <a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-110 transition-transform"
             href="#">
             <span class="material-symbols-outlined" data-icon="person">person</span>

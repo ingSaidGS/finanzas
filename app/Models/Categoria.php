@@ -31,7 +31,7 @@ class Categoria extends Model
 
     public function scopeGastos($query)
     {
-        return $query->where('tipo', 'gasto');
+        return $query->where('tipo', 'egreso');
     }
 
 }

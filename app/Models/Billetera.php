@@ -17,6 +17,7 @@ class Billetera extends Model
         'tipo',
         'saldo',
         'proposito',
+        'activo'
     ];
 
     // Relaciones

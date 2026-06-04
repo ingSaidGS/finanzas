@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Billetera;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class CategoriaController extends Controller
+class TransaccionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +15,7 @@ class CategoriaController extends Controller
     public function index()
     {
         //
-        $categoriasIngreso = Categoria::where('tipo', 'ingreso')->get();
-        $categoriasEgreso = Categoria::where('tipo', 'egreso')->get();
-
-        return Inertia::render('Categoria/index', [
-            'categoriasIngreso' => $categoriasIngreso,
-            'categoriasEgreso' => $categoriasEgreso
-        ]);
+        return Inertia::render('Transaccion/index');
     }
 
     /**
@@ -29,7 +24,14 @@ class CategoriaController extends Controller
     public function create()
     {
         //
-        return Inertia::render('Categoria/create');
+        $categorias = Categoria::where('activo', true)->get();
+        $billeteras = Billetera::where('activo', true)->get();
+
+        return Inertia::render('Transaccion/create',[
+            'categorias' => $categorias,
+            'billeteras' => $billeteras
+        ]);
+
     }
 
     /**
@@ -38,18 +40,6 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'tipo' => 'required|in:ingreso,egreso'
-        ]);
-
-        Categoria::create([
-            'nombre' => $request->nombre,
-            'tipo' => $request->tipo,
-        ]);
-
-        return redirect()->route('categoria.index')
-            ->with('success', 'Categoría creada exitosamente');
     }
 
     /**

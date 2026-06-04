@@ -1,5 +1,13 @@
 <script setup>
 import ResponsiveNav from '@/components/Navigation/ResponsiveNav.vue'
+import { Head, Link } from '@inertiajs/vue3';
+import CadIndexCategoria from '@/components/Cards/cardIndexCategoria.vue';
+
+const props = defineProps({
+    categoriasIngreso: Array,
+    categoriasEgreso: Array
+})
+
 let currentType = 'egresos';
 let currentStatus = 'activas';
 
@@ -81,16 +89,14 @@ function switchStatusTab(status) {
                 <div>
                     <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">
                         Categorías</h2>
-                    <p class="text-on-surface-variant mt-2 max-w-lg">Gestiona tus fuentes de ingresos y destinos de
-                        gastos para un seguimiento preciso de tus finanzas.</p>
                 </div>
-                <button
-                    class="bg-primary text-on-primary px-6 py-3 rounded-xl font-label-sm text-label-sm flex items-center justify-center gap-2 shadow-sm hover:bg-primary-container transition-colors active:scale-95 transition-transform self-start md:self-auto"
-                    onclick="window.location.href='#new-category-form'">
+                <Link :href="route('categoria.create')"
+                    class="bg-primary text-on-primary px-6 py-3 rounded-xl font-label-sm text-label-sm flex items-center justify-center gap-2 shadow-sm hover:bg-primary-container transition-colors active:scale-95 transition-transform self-start md:self-auto">
                     <span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
-                    + Agregar Categoría
-                </button>
+                    Agregar Categoría
+                </Link>
             </div>
+
             <!-- Double Tabs Structure -->
             <div class="space-y-6 mb-8">
                 <!-- First level: Egresos / Ingresos -->
@@ -120,54 +126,12 @@ function switchStatusTab(status) {
                     </button>
                 </div>
             </div>
+
             <!-- Categories Containers -->
             <div id="egresos-container">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="egresos-list-activas">
-                    <!-- Food -->
-                    <div
-                        class="category-card flex items-center justify-between p-6 bg-surface-container-lowest border border-surface-container-highest rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-md transition-all">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary">
-                                <span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
-                            </div>
-                            <div>
-                                <h3 class="font-title-md text-title-md">Comida</h3>
-                                <p class="text-on-surface-variant text-label-sm">8 transacciones este mes</p>
-                            </div>
-                        </div>
-                        <div class="action-buttons flex gap-2">
-                            <button
-                                class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant transition-colors">
-                                <span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
-                            </button>
-                            <button class="p-2 hover:bg-error-container/20 rounded-lg text-error transition-colors">
-                                <span class="material-symbols-outlined text-[20px]" data-icon="archive">archive</span>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Rent -->
-                    <div
-                        class="category-card flex items-center justify-between p-6 bg-surface-container-lowest border border-surface-container-highest rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-md transition-all">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                                <span class="material-symbols-outlined" data-icon="home">home</span>
-                            </div>
-                            <div>
-                                <h3 class="font-title-md text-title-md">Alquiler</h3>
-                                <p class="text-on-surface-variant text-label-sm">1 transacción este mes</p>
-                            </div>
-                        </div>
-                        <div class="action-buttons flex gap-2">
-                            <button
-                                class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant transition-colors">
-                                <span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
-                            </button>
-                            <button class="p-2 hover:bg-error-container/20 rounded-lg text-error transition-colors">
-                                <span class="material-symbols-outlined text-[20px]" data-icon="archive">archive</span>
-                            </button>
-                        </div>
+                    <div v-for="categoria in categoriasEgreso" :key="categoria.id">
+                        <CadIndexCategoria :categoria="categoria" />
                     </div>
                 </div>
                 <div class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter"
@@ -176,10 +140,6 @@ function switchStatusTab(status) {
                     <div
                         class="category-card archived-card flex items-center justify-between p-6 border border-surface-container-highest rounded-xl shadow-none transition-all">
                         <div class="flex items-center gap-4">
-                            <div
-                                class="w-12 h-12 rounded-full bg-outline-variant/30 flex items-center justify-center text-outline">
-                                <span class="material-symbols-outlined" data-icon="subscriptions">subscriptions</span>
-                            </div>
                             <div>
                                 <h3 class="font-title-md text-title-md">Suscripciones Antiguas</h3>
                                 <p class="text-on-surface-variant text-label-sm">Archivada hace 2 meses</p>
@@ -197,30 +157,11 @@ function switchStatusTab(status) {
                     </div>
                 </div>
             </div>
+
             <div class="hidden" id="ingresos-container">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="ingresos-list-activas">
-                    <!-- Salary -->
-                    <div
-                        class="category-card flex items-center justify-between p-6 bg-surface-container-lowest border border-surface-container-highest rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-md transition-all">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
-                                <span class="material-symbols-outlined" data-icon="payments">payments</span>
-                            </div>
-                            <div>
-                                <h3 class="font-title-md text-title-md">Sueldo</h3>
-                                <p class="text-on-surface-variant text-label-sm">1 transacción este mes</p>
-                            </div>
-                        </div>
-                        <div class="action-buttons flex gap-2">
-                            <button
-                                class="p-2 hover:bg-surface-container rounded-lg text-on-surface-variant transition-colors">
-                                <span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
-                            </button>
-                            <button class="p-2 hover:bg-error-container/20 rounded-lg text-error transition-colors">
-                                <span class="material-symbols-outlined text-[20px]" data-icon="archive">archive</span>
-                            </button>
-                        </div>
+                    <div v-for="categoria in categoriasIngreso" :key="categoria.id">
+                        <CadIndexCategoria :categoria="categoria" />
                     </div>
                 </div>
                 <div class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter"
@@ -250,6 +191,7 @@ function switchStatusTab(status) {
                     </div>
                 </div>
             </div>
+            
         </div>
     </main>
 </template>
